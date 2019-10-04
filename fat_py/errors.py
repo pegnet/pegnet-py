@@ -14,10 +14,10 @@ def handle_error_response(resp):
         -32805: TokenSyncing,
     }
 
-    error = resp.json().get('error', {})
-    message = error.get('message')
-    code = error.get('code', -1)
-    data = error.get('data', {})
+    error = resp.json().get("error", {})
+    message = error.get("message")
+    code = error.get("code", -1)
+    data = error.get("data", {})
 
     raise codes[code](message=message, code=code, data=data, response=resp)
 
@@ -41,7 +41,7 @@ class FATdAPIError(Exception):
 
     def __str__(self):
         if self.code:
-            return '{}: {}'.format(self.code, self.message)
+            return "{}: {}".format(self.code, self.message)
         return self.message
 
 

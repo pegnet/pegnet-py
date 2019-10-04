@@ -34,7 +34,7 @@ setup(
     license="MIT License",
     platforms=["OS Independent"],
     classifiers=CLASSIFIERS,
-    packages=find_packages(exclude=["tests"]),
+    packages=find_packages(exclude=["tests", "examples"]),
     include_package_data=True,
     install_requires=[
         "requests>=2.20.0",

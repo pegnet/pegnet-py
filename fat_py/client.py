@@ -1,16 +1,15 @@
 import random
 import string
-from urllib.parse import urljoin
 from factom_keys.fct import FactoidAddress
+from typing import List
+from urllib.parse import urljoin
 
 from .errors import handle_error_response
 from .session import APISession
 
 
 class BaseAPI(object):
-    def __init__(
-        self, ec_address=None, fct_address=None, host=None, username=None, password=None, certfile=None
-    ):
+    def __init__(self, ec_address=None, fct_address=None, host=None, username=None, password=None, certfile=None):
         """
         Instantiate a new API client.
 
@@ -62,10 +61,7 @@ class BaseAPI(object):
 
 
 class FATd(BaseAPI):
-
-    def __init__(
-        self, ec_address=None, fct_address=None, host=None, username=None, password=None, certfile=None
-    ):
+    def __init__(self, ec_address=None, fct_address=None, host=None, username=None, password=None, certfile=None):
         tmp_host = host if host is not None else "http://localhost:8070"
         super().__init__(ec_address, fct_address, tmp_host, username, password, certfile)
 
@@ -80,3 +76,10 @@ class FATd(BaseAPI):
     def get_pegnet_issuance(self):
         """Retrieve the token issuance for all pegnet assets"""
         return self._request("get-pegnet-issuance")
+
+    def send_transaction(self, chain_id: bytes, ext_ids: List[bytes], content: bytes):
+        """Send a transaction with the specified external ids and content"""
+        return self._request(
+            "send-transaction",
+            {"chainid": chain_id.hex(), "extids": [x.hex() for x in ext_ids], "content": content.hex()},
+        )

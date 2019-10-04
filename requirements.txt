@@ -1,2 +1,4 @@
+factom-api
 factom-keys
+numpy
 requests
