@@ -1,6 +1,7 @@
 import random
 import string
 from urllib.parse import urljoin
+from factom_keys.fct import FactoidAddress
 
 from .errors import handle_error_response
 from .session import APISession
@@ -72,3 +73,6 @@ class FATd(BaseAPI):
         """Retrieve the current sync status of the node."""
         return self._request("get-sync-status")
 
+    def get_pegnet_balances(self, address: FactoidAddress):
+        """Retrieve all current pegnet balances for the given address"""
+        return self._request("get-pegnet-balances", {"address": address.to_string()})
