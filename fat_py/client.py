@@ -76,3 +76,7 @@ class FATd(BaseAPI):
     def get_pegnet_balances(self, address: FactoidAddress):
         """Retrieve all current pegnet balances for the given address"""
         return self._request("get-pegnet-balances", {"address": address.to_string()})
+
+    def get_pegnet_issuance(self):
+        """Retrieve the token issuance for all pegnet assets"""
+        return self._request("get-pegnet-issuance")
