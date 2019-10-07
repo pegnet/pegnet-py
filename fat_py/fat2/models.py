@@ -119,7 +119,7 @@ class TransactionBatch:
         tx_payload = {"version": 1, "transactions": [tx.to_dict() for tx in self._txs]}
         content = json.dumps(tx_payload, separators=(",", ":")).encode()
 
-        chain_id = TRANSACTIONS_CHAIN_ID.hex().encode()
+        chain_id = TRANSACTIONS_CHAIN_ID
         external_ids = [self.timestamp.encode()]
         for i, key in enumerate(self._signer_keys):
             rcd = b"\x01" + key.get_factoid_address().key_bytes
@@ -189,7 +189,7 @@ class TransactionBatch:
                 return None  # Missing this input signer, not a valid entry
 
         # Finally check all the signatures
-        chain_id = TRANSACTIONS_CHAIN_ID.hex().encode()
+        chain_id = TRANSACTIONS_CHAIN_ID
         for i, full_signature in enumerate(observed_signatures):
             key, signature = full_signature
 
