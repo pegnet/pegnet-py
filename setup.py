@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 from setuptools import setup, find_packages
 
@@ -38,6 +37,8 @@ setup(
     include_package_data=True,
     install_requires=[
         "requests>=2.20.0",
+        "factom-api",
+        "factom-keys",
     ],
     url="https://github.com/pegnet/fat-py",
 )
