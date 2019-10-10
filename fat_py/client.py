@@ -77,6 +77,10 @@ class FATd(BaseAPI):
         """Retrieve the token issuance for all pegnet assets"""
         return self._request("get-pegnet-issuance")
 
+    def get_pegnet_rates(self, height: int):
+        """Retrieve the PegNet conversion rates for a given height"""
+        return self._request("get-pegnet-rates", {"height": height})
+
     def send_transaction(self, chain_id: bytes, ext_ids: List[bytes], content: bytes):
         """Send a transaction with the specified external ids and content"""
         return self._request(
