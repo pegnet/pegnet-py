@@ -57,7 +57,7 @@ class BaseAPI(object):
         if resp.status_code >= 400:
             handle_error_response(resp)
 
-        return resp.json()["result"]
+        return resp.json().get("result")
 
 
 class FATd(BaseAPI):
