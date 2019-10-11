@@ -12,6 +12,9 @@ def handle_error_response(resp):
         -32803: TransactionNotFound,
         -32804: InvalidTransaction,
         -32805: TokenSyncing,
+        -32806: NoEntryCredits,
+        -32808: AddressNotFound,
+        -32809: ErrorNotFound,
     }
 
     error = resp.json().get("error", {})
@@ -86,4 +89,16 @@ class InvalidTransaction(FATdAPIError):
 
 
 class TokenSyncing(FATdAPIError):
+    pass
+
+
+class NoEntryCredits(FATdAPIError):
+    pass
+
+
+class AddressNotFound(FATdAPIError):
+    pass
+
+
+class ErrorNotFound(FATdAPIError):
     pass

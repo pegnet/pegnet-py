@@ -54,10 +54,11 @@ class BaseAPI(object):
 
         resp = self.session.request("POST", self.url, json=data)
 
-        if resp.status_code >= 400:
+        resp_json = resp.json()
+        if resp.status_code >= 400 or len(resp_json.get("error", {}).keys()) != 0:
             handle_error_response(resp)
 
-        return resp.json().get("result")
+        return resp_json.get("result")
 
 
 class FATd(BaseAPI):
