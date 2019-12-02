@@ -1,9 +1,9 @@
-
 from setuptools import setup, find_packages
 
 
 try:
     import pypandoc
+
     long_description = pypandoc.convert("README.md", "rst")
 except (IOError, ImportError, OSError):
     long_description = open("README.md").read()
@@ -26,19 +26,15 @@ CLASSIFIERS = [
 
 
 setup(
-    name="fat-py",
+    name="pegnet-py",
     version="0.0.1",
-    description="Python client library for the FATd API",
+    description="Python client library for the pegnetd API",
     long_description=long_description,
     license="MIT License",
     platforms=["OS Independent"],
     classifiers=CLASSIFIERS,
     packages=find_packages(exclude=["tests", "examples"]),
     include_package_data=True,
-    install_requires=[
-        "requests>=2.20.0",
-        "factom-api",
-        "factom-keys",
-    ],
-    url="https://github.com/pegnet/fat-py",
+    install_requires=["requests>=2.20.0", "factom-api", "factom-keys"],
+    url="https://github.com/pegnet/pegnet-py",
 )
