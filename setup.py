@@ -30,6 +30,7 @@ setup(
     version="0.0.1",
     description="Python client library for the pegnetd API",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     license="MIT License",
     platforms=["OS Independent"],
     classifiers=CLASSIFIERS,
