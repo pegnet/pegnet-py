@@ -61,7 +61,7 @@ class BaseAPI(object):
         return resp_json.get("result")
 
 
-class FATd(BaseAPI):
+class PegNetd(BaseAPI):
     def __init__(self, ec_address=None, fct_address=None, host=None, username=None, password=None, certfile=None):
         tmp_host = host if host is not None else "http://localhost:8070"
         super().__init__(ec_address, fct_address, tmp_host, username, password, certfile)
@@ -70,36 +70,35 @@ class FATd(BaseAPI):
         """Retrieve the current sync status of the node."""
         return self._request("get-sync-status")
 
-    def get_pegnet_balances(self, address: FactoidAddress):
+    def get_balances(self, address: FactoidAddress):
         """Retrieve all current pegnet balances for the given address"""
         return self._request("get-pegnet-balances", {"address": address.to_string()})
 
-    def get_pegnet_issuance(self):
+    def get_issuance(self):
         """Retrieve the token issuance for all pegnet assets"""
         return self._request("get-pegnet-issuance")
 
-    def get_pegnet_rates(self, height: int):
+    def get_rates(self, height: int):
         """Retrieve the PegNet conversion rates for a given height"""
         return self._request("get-pegnet-rates", {"height": height})
 
-    def get_pegnet_tx_status(self, entry_hash: Union[bytes, str]):
+    def get_tx_status(self, entry_hash: Union[bytes, str]):
         """Retrieve the status for a PegNet transaction"""
-        return self._request("get-transaction-status", {
-            "entryhash":
-            entry_hash.hex() if type(entry_hash) is bytes else entry_hash
-        })
+        return self._request(
+            "get-transaction-status", {"entryhash": entry_hash.hex() if type(entry_hash) is bytes else entry_hash}
+        )
 
-    def get_pegnet_txs(
+    def get_txs(
         self,
-        entry_hash: Union[bytes, str]=None,
-        address: str=None,
-        height: int=None,
-        offset: int=0,
-        desc: bool=False,
-        transfer: bool=True,
-        conversion: bool=True,
-        coinbase: bool=True,
-        burn: bool=True
+        entry_hash: Union[bytes, str] = None,
+        address: str = None,
+        height: int = None,
+        offset: int = 0,
+        desc: bool = False,
+        transfer: bool = True,
+        conversion: bool = True,
+        coinbase: bool = True,
+        burn: bool = True,
     ):
         """Retrieve the transactions associated with the provided entry_hash or address or height"""
         request_params = {}
@@ -113,14 +112,16 @@ class FATd(BaseAPI):
         else:
             raise ValueError("One of entry_hash, address or height must be specified")
 
-        request_params.update({
-            "offset": offset,
-            "desc": desc,
-            "transfer": transfer,
-            "conversion": conversion,
-            "coinbase": coinbase,
-            "burn": burn
-        })
+        request_params.update(
+            {
+                "offset": offset,
+                "desc": desc,
+                "transfer": transfer,
+                "conversion": conversion,
+                "coinbase": coinbase,
+                "burn": burn,
+            }
+        )
 
         return self._request("get-transactions", request_params)
 

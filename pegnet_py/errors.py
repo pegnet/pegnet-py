@@ -1,6 +1,6 @@
 def handle_error_response(resp):
     codes = {
-        -1: FATdAPIError,
+        -1: PegNetdAPIError,
         -32600: InvalidRequest,
         -32601: MethodNotFound,
         -32602: InvalidParams,
@@ -25,7 +25,7 @@ def handle_error_response(resp):
     raise codes[code](message=message, code=code, data=data, response=resp)
 
 
-class FATdAPIError(Exception):
+class PegNetdAPIError(Exception):
     response = None
     data = {}
     code = -1
@@ -48,57 +48,57 @@ class FATdAPIError(Exception):
         return self.message
 
 
-class InvalidRequest(FATdAPIError):
+class InvalidRequest(PegNetdAPIError):
     pass
 
 
-class MethodNotFound(FATdAPIError):
+class MethodNotFound(PegNetdAPIError):
     pass
 
 
-class InvalidParams(FATdAPIError):
+class InvalidParams(PegNetdAPIError):
     pass
 
 
-class InternalError(FATdAPIError):
+class InternalError(PegNetdAPIError):
     pass
 
 
-class ParseError(FATdAPIError):
+class ParseError(PegNetdAPIError):
     pass
 
 
-class TokenNotFound(FATdAPIError):
+class TokenNotFound(PegNetdAPIError):
     pass
 
 
-class InvalidToken(FATdAPIError):
+class InvalidToken(PegNetdAPIError):
     pass
 
 
-class InvalidAddress(FATdAPIError):
+class InvalidAddress(PegNetdAPIError):
     pass
 
 
-class TransactionNotFound(FATdAPIError):
+class TransactionNotFound(PegNetdAPIError):
     pass
 
 
-class InvalidTransaction(FATdAPIError):
+class InvalidTransaction(PegNetdAPIError):
     pass
 
 
-class TokenSyncing(FATdAPIError):
+class TokenSyncing(PegNetdAPIError):
     pass
 
 
-class NoEntryCredits(FATdAPIError):
+class NoEntryCredits(PegNetdAPIError):
     pass
 
 
-class AddressNotFound(FATdAPIError):
+class AddressNotFound(PegNetdAPIError):
     pass
 
 
-class ErrorNotFound(FATdAPIError):
+class ErrorNotFound(PegNetdAPIError):
     pass
