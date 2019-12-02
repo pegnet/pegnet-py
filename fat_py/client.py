@@ -1,7 +1,7 @@
 import random
 import string
 from factom_keys.fct import FactoidAddress
-from typing import List
+from typing import List, Union
 from urllib.parse import urljoin
 
 from .errors import handle_error_response
@@ -81,6 +81,48 @@ class FATd(BaseAPI):
     def get_pegnet_rates(self, height: int):
         """Retrieve the PegNet conversion rates for a given height"""
         return self._request("get-pegnet-rates", {"height": height})
+
+    def get_pegnet_tx_status(self, entry_hash: Union[bytes, str]):
+        """Retrieve the status for a PegNet transaction"""
+        return self._request("get-transaction-status", {
+            "entryhash":
+            entry_hash.hex() if type(entry_hash) is bytes else entry_hash
+        })
+
+    def get_pegnet_txs(
+        self,
+        entry_hash: Union[bytes, str]=None,
+        address: str=None,
+        height: int=None,
+        offset: int=0,
+        desc: bool=False,
+        transfer: bool=True,
+        conversion: bool=True,
+        coinbase: bool=True,
+        burn: bool=True
+    ):
+        """Retrieve the transactions associated with the provided entry_hash or address or height"""
+        request_params = {}
+
+        if entry_hash:
+            request_params["entryhash"] = entry_hash.hex() if type(entry_hash) is bytes else entry_hash
+        elif address:
+            request_params["address"] = address
+        elif height:
+            request_params["height"] = height
+        else:
+            raise ValueError("One of entry_hash, address or height must be specified")
+
+        request_params.update({
+            "offset": offset,
+            "desc": desc,
+            "transfer": transfer,
+            "conversion": conversion,
+            "coinbase": coinbase,
+            "burn": burn
+        })
+
+        return self._request("get-transactions", request_params)
 
     def send_transaction(self, chain_id: bytes, ext_ids: List[bytes], content: bytes):
         """Send a transaction with the specified external ids and content"""
