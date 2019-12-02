@@ -1,12 +1,8 @@
 from setuptools import setup, find_packages
 
 
-try:
-    import pypandoc
-
-    long_description = pypandoc.convert("README.md", "rst")
-except (IOError, ImportError, OSError):
-    long_description = open("README.md").read()
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 
 CLASSIFIERS = [
