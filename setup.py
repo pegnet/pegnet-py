@@ -23,7 +23,7 @@ CLASSIFIERS = [
 
 setup(
     name="pegnet-py",
-    version="0.0.1",
+    version="0.0.2",
     description="Python client library for the pegnetd API",
     long_description=long_description,
     long_description_content_type="text/markdown",
