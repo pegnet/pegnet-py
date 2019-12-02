@@ -1,12 +1,8 @@
 from setuptools import setup, find_packages
 
 
-try:
-    import pypandoc
-
-    long_description = pypandoc.convert("README.md", "rst")
-except (IOError, ImportError, OSError):
-    long_description = open("README.md").read()
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 
 CLASSIFIERS = [
@@ -30,6 +26,7 @@ setup(
     version="0.0.1",
     description="Python client library for the pegnetd API",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     license="MIT License",
     platforms=["OS Independent"],
     classifiers=CLASSIFIERS,
