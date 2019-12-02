@@ -14,7 +14,7 @@ output_addresses = [
     FactoidAddress(address_string="FA34L6m7rQypr5PVmKGJ1Y4FQ6gDWbVaA49kFTGn1sSVZj6D8pFJ"),
 ]
 
-print(pegnetd.get_pegnet_balances(address))
+print(pegnetd.get_balances(address))
 
 tx = fat2.Transaction()
 tx.set_input(address, "PEG", 1000)
