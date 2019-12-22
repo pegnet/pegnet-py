@@ -1,5 +1,5 @@
 import dataclasses
-import datetime
+import datetime as dt
 import hashlib
 import json
 from dataclasses import dataclass
@@ -98,7 +98,7 @@ class Transaction:
 
 @dataclass
 class TransactionBatch:
-    timestamp: str = str(int(datetime.datetime.utcnow().timestamp()))
+    timestamp: str = str(int(dt.datetime.now(dt.timezone.utc).timestamp()))
 
     _txs: List[Transaction] = dataclasses.field(init=False, default_factory=list)
     _signer_keys: List[FactoidPrivateKey] = dataclasses.field(init=False, default_factory=list)
